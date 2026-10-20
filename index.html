@@ -50,6 +50,21 @@ body{
   80%{opacity:.5}
   100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(calc(var(--r) * -1)) scale(1.1)}
 }
+
+section[hidden]{display:none}
+.clock{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:28px}
+.clock div{background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(224,36,94,.18);border-radius:18px;padding:16px 18px;min-width:78px}
+.clock b{display:block;font-family:"Fraunces",Georgia,serif;font-size:2rem;font-weight:600;color:var(--accent)}
+.clock span{font-size:.9rem;color:var(--soft)}
+.letter{display:none;width:min(460px,100%);margin-top:26px;background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(224,36,94,.18);border-radius:18px;padding:22px 24px;text-align:left;white-space:pre-wrap;font-family:"Fraunces",Georgia,serif;font-style:italic;font-size:1.2rem;line-height:1.7}
+.letter.show{display:block}
+.ans{display:flex;gap:18px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:28px;min-height:130px}
+.ans button{margin-top:0}
+#yes{transition:transform .3s}
+button.no{background:transparent;color:var(--ink);box-shadow:none;border:2px solid var(--accent);transition:transform .3s}
+.tap{position:fixed;z-index:5;pointer-events:none;color:var(--accent);animation:tap 1s ease-out forwards}
+@keyframes tap{0%{opacity:1;transform:translate(-50%,-50%) scale(.5)}100%{opacity:0;transform:translate(-50%,-200%) scale(1.5)}}
+@media (prefers-reduced-motion:reduce){.tap{display:none}}
 .stage{position:relative;z-index:1}
 section{
   min-height:100vh;min-height:100svh;
@@ -135,6 +150,32 @@ button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
   </div>
 </section>
 
+<section id="sayac" hidden>
+  <h2 class="reveal">Birlikte geçen zaman</h2>
+  <div class="clock reveal d1" aria-live="off">
+    <div><b id="cd">0</b><span>gün</span></div>
+    <div><b id="ch">0</b><span>saat</span></div>
+    <div><b id="cm">0</b><span>dakika</span></div>
+    <div><b id="cs">0</b><span>saniye</span></div>
+  </div>
+  <p class="reveal d2">ve her saniyesi için teşekkür ederim.</p>
+</section>
+
+<section>
+  <h2 class="reveal">Sana bir mektubum var</h2>
+  <button class="reveal d1" id="open" type="button">Mektubu aç</button>
+  <div class="letter" id="letter" aria-live="polite"></div>
+</section>
+
+<section>
+  <h2 class="reveal">Beni seviyor musun?</h2>
+  <div class="ans reveal d1">
+    <button type="button" id="yes">Evet</button>
+    <button type="button" id="no" class="no">Hayır</button>
+  </div>
+  <div class="msg" id="qmsg" aria-live="polite"></div>
+</section>
+
 <section>
   <div class="big reveal" id="big">♥</div>
   <h2 class="reveal d1">İrem, seni çok seviyorum.</h2>
@@ -199,6 +240,62 @@ button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
   }
   for (var j=0;j<16;j++) setTimeout(word, j*250);
   setInterval(word, 600);
+
+  // tıklanan yerde kalp
+  document.addEventListener("pointerdown", function(e){
+    if (e.target.closest("textarea")) return;
+    var t = document.createElement("span");
+    t.className = "tap"; t.textContent = "♥";
+    t.style.left = e.clientX + "px"; t.style.top = e.clientY + "px";
+    t.style.fontSize = (18 + Math.random()*18) + "px";
+    document.body.appendChild(t);
+    setTimeout(function(){ t.remove(); }, 1000);
+  });
+
+  // birlikte geçen zaman (config.js içindeki startDate: "YYYY-MM-DD")
+  var scfg = window.SITE_CONFIG || {};
+  var start = scfg.startDate ? new Date(scfg.startDate + "T00:00:00").getTime() : NaN;
+  if (!isNaN(start)) {
+    document.getElementById("sayac").hidden = false;
+    var tick = function(){
+      var d = Math.max(0, Date.now() - start);
+      document.getElementById("cd").textContent = Math.floor(d/86400000);
+      document.getElementById("ch").textContent = Math.floor(d/3600000) % 24;
+      document.getElementById("cm").textContent = Math.floor(d/60000) % 60;
+      document.getElementById("cs").textContent = Math.floor(d/1000) % 60;
+    };
+    tick(); setInterval(tick, 1000);
+  }
+
+  // mektup: daktilo etkisi
+  var letterText = "İrem’ciğim,\n\nSana bunu yazarken gülümsüyorum. Seni düşünmek günün en güzel kısmı.\n\nYanımda olduğun için, bana kendimi iyi hissettirdiğin için, sen sen olduğun için teşekkür ederim.\n\nDünyada her şey değişse de seni sevmem hiç değişmeyecek.\n\nSeni çok seviyorum.\n\nKaan";
+  document.getElementById("open").addEventListener("click", function(){
+    var el = document.getElementById("letter"), b = this, i = 0;
+    el.classList.add("show");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { el.textContent = letterText; return; }
+    b.disabled = true; el.textContent = "";
+    var iv = setInterval(function(){
+      el.textContent = letterText.slice(0, ++i);
+      if (i >= letterText.length) { clearInterval(iv); b.disabled = false; b.textContent = "Tekrar oku"; }
+    }, 30);
+  });
+
+  // beni seviyor musun?
+  var yes = document.getElementById("yes"), no = document.getElementById("no"), sc = 1;
+  function dodge(e){
+    e.preventDefault();
+    sc = Math.min(sc + 0.18, 2.2);
+    yes.style.transform = "scale(" + sc + ")";
+    no.style.transform = "translate(" + (Math.random()*160-80) + "px," + (Math.random()*120-60) + "px)";
+  }
+  no.addEventListener("pointerenter", dodge);
+  no.addEventListener("pointerdown", dodge);
+  no.addEventListener("click", function(e){ e.preventDefault(); });
+  yes.addEventListener("click", function(){
+    document.getElementById("qmsg").textContent = "Ben de seni çok seviyorum ♥";
+    no.style.visibility = "hidden";
+    for (var k=0;k<24;k++) setTimeout(heart, k*50);
+  });
 
   // scroll reveals
   var els = document.querySelectorAll(".reveal");

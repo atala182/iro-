@@ -7,25 +7,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
---bg1:#fff8f1;--bg2:#ffe4ec;--bg3:#fbd3e6;--ink:#4a1230;--soft:#8e4a63;--accent:#d6336c;--card:rgba(255,255,255,.62);--line:rgba(214,51,108,.2)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg1:#1b0b15;--bg2:#2e1026;--bg3:#431539;--ink:#ffe6ee;--soft:#f2a9c2;--accent:#ff5c8a;--card:rgba(255,255,255,.08);--line:rgba(255,92,138,.3)}}
-:root[data-theme="dark"]{--bg1:#1b0b15;--bg2:#2e1026;--bg3:#431539;--ink:#ffe6ee;--soft:#f2a9c2;--accent:#ff5c8a;--card:rgba(255,255,255,.08);--line:rgba(255,92,138,.3)}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--ink:#fff6cf;--soft:#ffe58a;--accent:#fcd116;--card:rgba(255,255,255,.09);--line:rgba(252,209,22,.38);--bi:#0a2a66}
 *,*::before,*::after{box-sizing:inherit}
 html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;min-height:100%;background:linear-gradient(165deg,var(--bg1),var(--bg2) 55%,var(--bg3));background-attachment:fixed;color:var(--ink);font-family:"Nunito",system-ui,sans-serif;overflow-x:hidden}
-#drift,#garden{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+body{margin:0;min-height:100%;background:#0a2a66;color:var(--ink);font-family:"Nunito",system-ui,sans-serif;overflow-x:hidden}
+#drift,#garden{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1}
 #garden{top:auto;height:150px;display:flex;justify-content:space-around;align-items:flex-end}
 .g{display:flex;flex-direction:column;align-items:center;transform-origin:bottom center;animation:sway 4s ease-in-out infinite alternate}
 .g svg{display:block}.g i{width:3px;background:#5aa469;border-radius:2px;display:block}
 @keyframes sway{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
-.d{position:absolute;bottom:-130px;opacity:0;animation:up var(--dur) linear forwards;color:var(--accent);font-family:"Fraunces",Georgia,serif;font-style:italic;white-space:nowrap}
+.d{position:absolute;bottom:-130px;opacity:0;animation:up var(--dur) linear forwards;color:#fff;text-shadow:0 0 4px rgba(10,42,102,.85);font-family:"Fraunces",Georgia,serif;font-style:italic;white-space:nowrap}
 .d svg{display:block;width:100%;height:auto}
 @keyframes up{0%{opacity:0;transform:translate(0,0) rotate(0)}10%{opacity:.6}90%{opacity:.6}100%{opacity:0;transform:translate(var(--dx),-125vh) rotate(var(--r))}}
-.ky,.bw{color:transparent;-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 1.5px rgba(128,128,128,.9))}
+.ky,.bw{text-shadow:none;color:transparent;-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 1.5px rgba(128,128,128,.9))}
 .ky{background-image:linear-gradient(90deg,#fcd116 50%,#0a2a66 50%)}
 .bw{background-image:linear-gradient(90deg,#fff 50%,#111 50%)}
-.tap{position:fixed;z-index:5;pointer-events:none;animation:tap 1s ease-out forwards}
+.hp{color:#ff5c8a}
+.tap{position:fixed;z-index:5;pointer-events:none;text-shadow:0 0 3px rgba(0,0,0,.4);animation:tap 1s ease-out forwards}
 @keyframes tap{0%{opacity:1;transform:translate(-50%,-50%) scale(.5)}100%{opacity:0;transform:translate(-50%,-200%) scale(1.6)}}
 .petals{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;width:min(380px,100%);margin-top:26px}
 .pick{margin:0;padding:0;width:100%;aspect-ratio:1;background:none;box-shadow:none;border-radius:50%}
@@ -37,9 +35,15 @@ body{margin:0;min-height:100%;background:linear-gradient(165deg,var(--bg1),var(-
 .todo{display:flex;align-items:center;gap:14px;background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:18px;padding:16px 20px;font-size:1.1rem;text-align:left;cursor:pointer}
 .todo input{width:22px;height:22px;accent-color:var(--accent);flex:none}
 .todo:has(input:checked) span{text-decoration:line-through;opacity:.6}
-.stage{position:relative;z-index:1}
-section{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px 24px 170px}
+.quote{min-height:7.5em;max-width:26ch;margin-top:24px;font-family:"Fraunces",Georgia,serif;font-style:italic;font-size:clamp(1.5rem,5vw,2.2rem);line-height:1.35;transition:opacity .6s,transform .6s}
+.quote.out{opacity:0;transform:translateY(12px)}
+.stage{position:static}
+section>*{position:relative;z-index:2}
+.d svg,.g svg,.fl-row svg,.bloom svg,.fb svg,.pick svg{filter:drop-shadow(0 0 1.2px rgba(10,42,102,.55))}
+section{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px 24px 170px}
 section[hidden]{display:none}
+section.nav{background:#0a2a66}
+section.yel{background:#fcd116;--ink:#0a2a66;--soft:#23468f;--accent:#0a2a66;--card:rgba(10,42,102,.08);--line:rgba(10,42,102,.32);--bi:#fcd116}
 h1,h2{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:300;margin:0;line-height:1.1}
 h1{font-size:clamp(2.6rem,10vw,5.6rem)}h2{font-size:clamp(1.8rem,6vw,3.1rem)}
 p{max-width:36ch;font-size:1.15rem;line-height:1.65;color:var(--soft);margin:18px 0 0}
@@ -50,7 +54,7 @@ p{max-width:36ch;font-size:1.15rem;line-height:1.65;color:var(--soft);margin:18p
 .bloom svg{display:block;width:100%;animation:spin 50s linear infinite}
 @keyframes bl{from{opacity:0;transform:scale(.1) rotate(-90deg)}to{opacity:1;transform:none}}
 @keyframes spin{to{transform:rotate(360deg)}}
-.hint{position:absolute;bottom:max(170px,env(safe-area-inset-bottom,0px));font-size:.9rem;color:var(--soft);animation:nudge 2s ease-in-out infinite}
+.hint{position:absolute;z-index:2;bottom:max(170px,env(safe-area-inset-bottom,0px));font-size:.9rem;color:var(--soft);animation:nudge 2s ease-in-out infinite}
 @keyframes nudge{50%{transform:translateY(8px)}}
 .reveal{opacity:0;transform:translateY(40px) scale(.97);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
 .reveal.on{opacity:1;transform:none}
@@ -69,7 +73,7 @@ p{max-width:36ch;font-size:1.15rem;line-height:1.65;color:var(--soft);margin:18p
 .clock div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;min-width:78px}
 .clock b{display:block;font-family:"Fraunces",Georgia,serif;font-size:2rem;font-weight:600;color:var(--accent)}
 .clock span{font-size:.9rem;color:var(--soft)}
-button{margin-top:28px;font:inherit;font-weight:600;color:#fff;background:var(--accent);border:0;border-radius:999px;padding:14px 28px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 24px rgba(214,51,108,.35)}
+button{margin-top:28px;font:inherit;font-weight:600;color:var(--bi);background:var(--accent);border:0;border-radius:999px;padding:14px 28px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 24px rgba(0,0,0,.28)}
 button:hover{transform:translateY(-2px) scale(1.03)}button:active{transform:scale(.97)}
 button:disabled{opacity:.6;cursor:default}
 button:focus-visible,textarea:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
@@ -153,6 +157,12 @@ button.alt{background:transparent;color:var(--ink);box-shadow:none;border:2px so
 </section>
 
 <section>
+  <h2 class="reveal">Sana özlü sözler</h2>
+  <div class="quote reveal d1" id="quote" aria-live="polite"></div>
+  <button type="button" class="alt reveal d2" id="nextq">Sıradaki söz</button>
+</section>
+
+<section>
   <h2 class="reveal">Bir çiçeğe dokun</h2>
   <p class="reveal d1">Her birinin içinde sana bir not var.</p>
   <div class="petals reveal d2" id="petals"></div>
@@ -180,7 +190,7 @@ button.alt{background:transparent;color:var(--ink);box-shadow:none;border:2px so
 <script>
 (function(){
   var cfg = window.SITE_CONFIG || {};
-  var P = [["#ff8fab","#ffd166"],["#ffb3c6","#fb6f92"],["#ffc8a2","#ff8c42"],["#c8b6ff","#ffd6a5"],["#ffffff","#ffcb77"],["#ffe066","#fb8500"],["#ffafcc","#ffffff"]];
+  var P = [["#ffffff","#fcd116"],["#0a2a66","#fcd116"],["#fcd116","#0a2a66"],["#7fb2ff","#ffffff"],["#ffffff","#0a2a66"],["#ffd23f","#0a2a66"],["#ff8fab","#ffffff"]];
   function R(a,b){ return a + Math.random()*(b-a); }
   function flower(){
     var c = P[Math.floor(Math.random()*P.length)], n = 5 + Math.floor(Math.random()*4), s = "", i;
@@ -216,7 +226,7 @@ button.alt{background:transparent;color:var(--ink);box-shadow:none;border:2px so
     var d = document.createElement("div"), r = Math.random(), dur = R(9,16);
     d.className = "d";
     if (r < .62){ var s = R(30,90); d.style.width = s + "px"; d.innerHTML = flower(); }
-    else if (r < .85){ d.className += tone(); d.textContent = "♥"; d.style.fontSize = R(14,34) + "px"; }
+    else if (r < .85){ d.className += tone() || " hp"; d.textContent = "♥"; d.style.fontSize = R(14,34) + "px"; }
     else { d.textContent = words[Math.floor(Math.random()*words.length)]; d.style.fontSize = R(16,34) + "px"; if (Math.random() < .4) d.style.fontWeight = 600; }
     d.style.left = R(0,94) + "%";
     d.style.setProperty("--dx", R(-120,120) + "px");
@@ -234,7 +244,7 @@ button.alt{background:transparent;color:var(--ink);box-shadow:none;border:2px so
     if (e.target.closest("textarea")) return;
     var t = document.createElement("span");
     t.className = "tap"; t.textContent = glyphs[Math.floor(Math.random()*glyphs.length)];
-    t.style.color = P[Math.floor(Math.random()*P.length)][0] === "#ffffff" ? "#ff8fab" : P[Math.floor(Math.random()*P.length)][0];
+    t.style.color = ["#ffffff","#ff5c8a","#0a2a66","#fcd116"][Math.floor(Math.random()*4)];
     t.style.left = e.clientX + "px"; t.style.top = e.clientY + "px"; t.style.fontSize = R(20,38) + "px";
     document.body.appendChild(t);
     setTimeout(function(){ t.remove(); }, 1000);
@@ -271,6 +281,9 @@ button.alt{background:transparent;color:var(--ink);box-shadow:none;border:2px so
     tick(); setInterval(tick, 1000);
   }
 
+  // bölümleri sırayla lacivert / sarı yap
+  document.querySelectorAll("section:not([hidden])").forEach(function(sec,n){ sec.classList.add(n % 2 ? "yel" : "nav"); });
+
   // mektup
   var letter = "İrem’ciğim,\n\nBu satırları yazarken içim burkuluyor. Seni üzdüğüm için kendimi affedemiyorum.\n\nSenin değerini bildiğimi, seni kaybetmekten korktuğumu bilmeni istiyorum. Hata yaptım ve bunun sorumluluğu bende.\n\nYanında olmak, seni güldürmek, her gün sana daha iyi davranmak istiyorum.\n\nBana bir şans verirsen bunu sana her gün göstermeye çalışacağım.\n\nSeni çok seviyorum.\n\nKaan";
   document.getElementById("open").addEventListener("click", function(){
@@ -283,6 +296,18 @@ button.alt{background:transparent;color:var(--ink);box-shadow:none;border:2px so
       if (i >= letter.length){ clearInterval(iv); b.disabled = false; b.textContent = "Tekrar oku"; }
     }, 30);
   });
+
+  // özlü sözler
+  var quotes = ["Sevmek, birinin mutluluğunu kendi mutluluğundan önce düşünebilmektir.","Özür dilemek zayıflık değil, sevdiğini kaybetmeyecek kadar güçlü olmaktır.","Çiçek ilgi görmezse nasıl solarsa, sevgi de ilgisiz kalırsa solar.","En güzel sözler, ardından davranışı gelenlerdir.","Gerçek sevgi hata yapmamak değil, hatasından ders alıp yeniden denemektir.","Affetmek, kalbin en cesur çiçeğidir.","Sevgi, her sabah yeniden verilen bir karardır.","Seni sevmek bir bahçeyi sulamak gibi: her gün biraz emek, sonunda binlerce çiçek.","Seninle geçen bir dakika, sensiz geçen bir günden daha uzun sürer içimde.","Kalp sevdiğini bulunca susar, onu kaybetmekten korkunca en çok konuşur."];
+  var qi = 0, qel = document.getElementById("quote"), qt;
+  qel.textContent = quotes[0];
+  function showQ(n){
+    qel.classList.add("out");
+    setTimeout(function(){ qi = n; qel.textContent = quotes[qi]; qel.classList.remove("out"); }, 450);
+  }
+  function qloop(){ clearInterval(qt); qt = setInterval(function(){ showQ((qi + 1) % quotes.length); }, 7000); }
+  qloop();
+  document.getElementById("nextq").addEventListener("click", function(){ showQ((qi + 1) % quotes.length); qloop(); });
 
   // çiçek notları
   var notes = ["Seni her gün biraz daha çok seviyorum.","Gülüşün benim en sevdiğim yer.","Sana daha iyi davranmak için her gün çalışacağım.","Seninle her şey daha güzel.","Bana verdiğin her an için teşekkür ederim.","Seni kırdığım her an için özür dilerim.","Yanımda olduğun için çok şanslıyım.","Hazır olduğunda, buradayım."];

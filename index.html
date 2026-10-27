@@ -7,7 +7,308 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{
+:root{<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>İrem, seni çok seviyorum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg1:#fff8f1;--bg2:#ffe4ec;--bg3:#fbd3e6;--ink:#4a1230;--soft:#8e4a63;--accent:#d6336c;--card:rgba(255,255,255,.62);--line:rgba(214,51,108,.2)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg1:#1b0b15;--bg2:#2e1026;--bg3:#431539;--ink:#ffe6ee;--soft:#f2a9c2;--accent:#ff5c8a;--card:rgba(255,255,255,.08);--line:rgba(255,92,138,.3)}}
+:root[data-theme="dark"]{--bg1:#1b0b15;--bg2:#2e1026;--bg3:#431539;--ink:#ffe6ee;--soft:#f2a9c2;--accent:#ff5c8a;--card:rgba(255,255,255,.08);--line:rgba(255,92,138,.3)}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:linear-gradient(165deg,var(--bg1),var(--bg2) 55%,var(--bg3));background-attachment:fixed;color:var(--ink);font-family:"Nunito",system-ui,sans-serif;overflow-x:hidden}
+#drift,#garden{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+#garden{top:auto;height:150px;display:flex;justify-content:space-around;align-items:flex-end}
+.g{display:flex;flex-direction:column;align-items:center;transform-origin:bottom center;animation:sway 4s ease-in-out infinite alternate}
+.g svg{display:block}.g i{width:3px;background:#5aa469;border-radius:2px;display:block}
+@keyframes sway{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+.d{position:absolute;bottom:-130px;opacity:0;animation:up var(--dur) linear forwards;color:var(--accent);font-family:"Fraunces",Georgia,serif;font-style:italic;white-space:nowrap}
+.d svg{display:block;width:100%;height:auto}
+@keyframes up{0%{opacity:0;transform:translate(0,0) rotate(0)}10%{opacity:.6}90%{opacity:.6}100%{opacity:0;transform:translate(var(--dx),-125vh) rotate(var(--r))}}
+.ky,.bw{color:transparent;-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 1.5px rgba(128,128,128,.9))}
+.ky{background-image:linear-gradient(90deg,#fcd116 50%,#0a2a66 50%)}
+.bw{background-image:linear-gradient(90deg,#fff 50%,#111 50%)}
+.tap{position:fixed;z-index:5;pointer-events:none;animation:tap 1s ease-out forwards}
+@keyframes tap{0%{opacity:1;transform:translate(-50%,-50%) scale(.5)}100%{opacity:0;transform:translate(-50%,-200%) scale(1.6)}}
+.stage{position:relative;z-index:1}
+section{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px 24px 170px}
+section[hidden]{display:none}
+h1,h2{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:300;margin:0;line-height:1.1}
+h1{font-size:clamp(2.6rem,10vw,5.6rem)}h2{font-size:clamp(1.8rem,6vw,3.1rem)}
+p{max-width:36ch;font-size:1.15rem;line-height:1.65;color:var(--soft);margin:18px 0 0}
+.name{color:var(--accent);font-weight:600}
+.word{display:inline-block;opacity:0;transform:translateY(30px) rotate(-3deg);filter:blur(8px);animation:in 1s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes in{to{opacity:1;transform:none;filter:blur(0)}}
+.bloom{width:min(210px,52vw);margin-bottom:22px;animation:bl 1.8s cubic-bezier(.2,.8,.2,1) both}
+.bloom svg{display:block;width:100%;animation:spin 50s linear infinite}
+@keyframes bl{from{opacity:0;transform:scale(.1) rotate(-90deg)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hint{position:absolute;bottom:max(170px,env(safe-area-inset-bottom,0px));font-size:.9rem;color:var(--soft);animation:nudge 2s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(8px)}}
+.reveal{opacity:0;transform:translateY(40px) scale(.97);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.reveal.on{opacity:1;transform:none}
+.reveal.left{transform:translateX(-60px)}.reveal.right{transform:translateX(60px)}
+.reveal.left.on,.reveal.right.on{transform:none}
+.d1{transition-delay:.15s}.d2{transition-delay:.3s}
+.cards{display:grid;gap:14px;width:min(520px,100%);margin-top:28px}
+.card{position:relative;background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:18px;padding:18px 20px 18px 62px;font-size:1.1rem;text-align:left}
+.card .fb{position:absolute;left:14px;top:50%;width:34px;margin-top:-17px}
+.card .fb svg{display:block;width:100%;animation:spin 18s linear infinite}
+.fl-row{display:flex;gap:10px;justify-content:center;margin-top:30px}
+.fl-row svg{width:30px;height:30px;animation:spin 14s linear infinite}
+.letter{display:none;width:min(480px,100%);margin-top:26px;background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:18px;padding:22px 24px;text-align:left;white-space:pre-wrap;font-family:"Fraunces",Georgia,serif;font-style:italic;font-size:1.2rem;line-height:1.7}
+.letter.show{display:block}
+.clock{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:28px}
+.clock div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;min-width:78px}
+.clock b{display:block;font-family:"Fraunces",Georgia,serif;font-size:2rem;font-weight:600;color:var(--accent)}
+.clock span{font-size:.9rem;color:var(--soft)}
+button{margin-top:28px;font:inherit;font-weight:600;color:#fff;background:var(--accent);border:0;border-radius:999px;padding:14px 28px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 24px rgba(214,51,108,.35)}
+button:hover{transform:translateY(-2px) scale(1.03)}button:active{transform:scale(.97)}
+button:disabled{opacity:.6;cursor:default}
+button:focus-visible,textarea:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+button.alt{background:transparent;color:var(--ink);box-shadow:none;border:2px solid var(--accent)}
+.ans{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.msg{min-height:2.6em;margin-top:22px;max-width:30ch;font-family:"Fraunces",Georgia,serif;font-style:italic;font-size:1.45rem}
+.reply{width:min(460px,100%);margin-top:30px;display:flex;flex-direction:column;gap:12px}
+.reply[hidden]{display:none}
+.reply label{font-family:"Fraunces",Georgia,serif;font-style:italic;font-size:1.25rem}
+.reply textarea{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;resize:vertical;min-height:96px}
+.reply button{align-self:center;margin-top:0}
+.sent{color:var(--accent);min-height:1.4em}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.word,.reveal{opacity:1;transform:none;filter:none}#drift,.tap{display:none}}
+</style>
+</head>
+<body>
+<div id="drift" aria-hidden="true"></div>
+<div id="garden" aria-hidden="true"></div>
+<main class="stage">
+
+<section>
+  <div class="bloom" id="hero"></div>
+  <h1 id="title"></h1>
+  <p style="animation:in 1s 2.6s both;opacity:0">Lütfen beni affet.</p>
+  <div class="hint">aşağı kaydır ↓</div>
+</section>
+
+<section>
+  <h2 class="reveal left">Özür dilerim</h2>
+  <p class="reveal right d1">Seni üzdüğüm, kırdığım için çok pişmanım. Bahane aramıyorum, haklı olduğun yerde haklısın. Sadece sana ne kadar değer verdiğimi ve seni kaybetmek istemediğimi bilmeni istedim.</p>
+  <div class="fl-row reveal d2"></div>
+</section>
+
+<section>
+  <h2 class="reveal">Sana söz veriyorum</h2>
+  <div class="cards">
+    <div class="card reveal left">Seni daha çok dinleyeceğim.</div>
+    <div class="card reveal right d1">Söylediklerini küçümsemeyeceğim, kalbini kırdığımda hemen fark edeceğim.</div>
+    <div class="card reveal left d2">Zor günlerde de, güzel günlerde de yanında olacağım.</div>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">Seni neden seviyorum?</h2>
+  <div class="cards">
+    <div class="card reveal left">Gülüşün en kötü günümü bile düzeltiyor.</div>
+    <div class="card reveal right d1">Yanında tamamen kendim olabiliyorum.</div>
+    <div class="card reveal left d2">Kalbin çok güzel.</div>
+    <div class="card reveal right">Sen olduğun için.</div>
+  </div>
+</section>
+
+<section id="sayac" hidden>
+  <h2 class="reveal">Birlikte geçen zaman</h2>
+  <div class="clock reveal d1">
+    <div><b id="cd">0</b><span>gün</span></div><div><b id="ch">0</b><span>saat</span></div>
+    <div><b id="cm">0</b><span>dakika</span></div><div><b id="cs">0</b><span>saniye</span></div>
+  </div>
+  <p class="reveal d2">Her anı için teşekkür ederim.</p>
+</section>
+
+<section>
+  <h2 class="reveal">Sana bir mektubum var</h2>
+  <button class="reveal d1" id="open" type="button">Mektubu aç</button>
+  <div class="letter" id="letter" aria-live="polite"></div>
+</section>
+
+<section>
+  <h2 class="reveal">Beni affeder misin?</h2>
+  <div class="ans reveal d1">
+    <button type="button" id="yes">Seni affediyorum</button>
+    <button type="button" id="wait" class="alt">Biraz zamana ihtiyacım var</button>
+  </div>
+  <div class="msg" id="msg" aria-live="polite"></div>
+  <form class="reply reveal d2" id="reply" hidden>
+    <label for="txt">Bana bir şey söylemek ister misin?</label>
+    <textarea id="txt" maxlength="500" required placeholder="Buraya yaz…"></textarea>
+    <button type="submit" id="send">Gönder</button>
+    <div class="sent" id="sent" aria-live="polite"></div>
+  </form>
+</section>
+
+<section>
+  <div class="bloom" id="end" style="animation:none"></div>
+  <h2 class="reveal">İrem, seni çok seviyorum.</h2>
+  <p class="reveal d1">Her şey için, hep.</p>
+</section>
+
+</main>
+<script src="config.js"></script>
+<script>
+(function(){
+  var cfg = window.SITE_CONFIG || {};
+  var P = [["#ff8fab","#ffd166"],["#ffb3c6","#fb6f92"],["#ffc8a2","#ff8c42"],["#c8b6ff","#ffd6a5"],["#ffffff","#ffcb77"],["#ffe066","#fb8500"],["#ffafcc","#ffffff"]];
+  function R(a,b){ return a + Math.random()*(b-a); }
+  function flower(){
+    var c = P[Math.floor(Math.random()*P.length)], n = 5 + Math.floor(Math.random()*4), s = "", i;
+    for (i=0;i<n;i++) s += '<ellipse cx="50" cy="27" rx="13" ry="23" fill="'+c[0]+'" transform="rotate('+(i*360/n)+' 50 50)"/>';
+    for (i=0;i<n;i++) s += '<ellipse cx="50" cy="35" rx="7" ry="13" fill="#fff" fill-opacity=".35" transform="rotate('+(i*360/n+180/n)+' 50 50)"/>';
+    return '<svg viewBox="0 0 100 100" aria-hidden="true">' + s + '<circle cx="50" cy="50" r="10" fill="'+c[1]+'"/></svg>';
+  }
+  function tone(){ var r = Math.random(); return r < .25 ? " ky" : r < .5 ? " bw" : ""; }
+
+  // hero ve kapanış çiçekleri
+  document.getElementById("hero").innerHTML = flower();
+  document.getElementById("end").innerHTML = flower();
+  document.querySelectorAll(".fl-row").forEach(function(r){ for (var i=0;i<5;i++) r.insertAdjacentHTML("beforeend", flower()); });
+  document.querySelectorAll(".card").forEach(function(c){ c.insertAdjacentHTML("afterbegin", '<span class="fb">' + flower() + '</span>'); });
+
+  // alt kenarda çiçek bahçesi
+  var garden = document.getElementById("garden");
+  var gc = Math.max(5, Math.floor(window.innerWidth / 105));
+  for (var g=0; g<gc; g++){
+    var w = R(44,72), el = document.createElement("div");
+    el.className = "g";
+    el.style.width = w + "px";
+    el.style.animationDelay = (-R(0,4)) + "s";
+    el.innerHTML = flower() + '<i style="height:' + R(20,70) + 'px"></i>';
+    garden.appendChild(el);
+  }
+
+  // her yerde süzülen çiçekler, kalpler ve yazılar
+  var drift = document.getElementById("drift");
+  var words = ["kaan","irem","kalp","kaan & irem","irem ♥"];
+  function spawn(){
+    if (drift.childElementCount > 46) return;
+    var d = document.createElement("div"), r = Math.random(), dur = R(9,16);
+    d.className = "d";
+    if (r < .62){ var s = R(30,90); d.style.width = s + "px"; d.innerHTML = flower(); }
+    else if (r < .85){ d.className += tone(); d.textContent = "♥"; d.style.fontSize = R(14,34) + "px"; }
+    else { d.textContent = words[Math.floor(Math.random()*words.length)]; d.style.fontSize = R(16,34) + "px"; if (Math.random() < .4) d.style.fontWeight = 600; }
+    d.style.left = R(0,94) + "%";
+    d.style.setProperty("--dx", R(-120,120) + "px");
+    d.style.setProperty("--r", R(-360,540) + "deg");
+    d.style.setProperty("--dur", dur + "s");
+    drift.appendChild(d);
+    setTimeout(function(){ d.remove(); }, dur*1000 + 200);
+  }
+  for (var i=0;i<14;i++) setTimeout(spawn, i*350);
+  setInterval(spawn, 700);
+
+  // dokununca çiçek/kalp
+  var glyphs = ["✿","❀","♥","✾"];
+  document.addEventListener("pointerdown", function(e){
+    if (e.target.closest("textarea")) return;
+    var t = document.createElement("span");
+    t.className = "tap"; t.textContent = glyphs[Math.floor(Math.random()*glyphs.length)];
+    t.style.color = P[Math.floor(Math.random()*P.length)][0] === "#ffffff" ? "#ff8fab" : P[Math.floor(Math.random()*P.length)][0];
+    t.style.left = e.clientX + "px"; t.style.top = e.clientY + "px"; t.style.fontSize = R(20,38) + "px";
+    document.body.appendChild(t);
+    setTimeout(function(){ t.remove(); }, 1000);
+  });
+
+  // başlık: kelime kelime
+  var title = document.getElementById("title");
+  ["İrem,","seni","çok","seviyorum"].forEach(function(wd,i,a){
+    var s = document.createElement("span");
+    s.className = "word" + (i===0 ? " name" : "");
+    s.style.animationDelay = (0.6 + i*0.45) + "s";
+    s.textContent = wd + (i<a.length-1 ? "\u00a0" : "");
+    title.appendChild(s);
+  });
+
+  // kaydırma geçişleri
+  var els = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ e.target.classList.toggle("on", e.isIntersecting); }); },{threshold:.3});
+    els.forEach(function(x){ io.observe(x); });
+  } else { els.forEach(function(x){ x.classList.add("on"); }); }
+
+  // birlikte geçen zaman (config.js: startDate)
+  var start = cfg.startDate ? new Date(cfg.startDate + "T00:00:00").getTime() : NaN;
+  if (!isNaN(start)){
+    document.getElementById("sayac").hidden = false;
+    var tick = function(){
+      var d = Math.max(0, Date.now() - start);
+      document.getElementById("cd").textContent = Math.floor(d/86400000);
+      document.getElementById("ch").textContent = Math.floor(d/3600000) % 24;
+      document.getElementById("cm").textContent = Math.floor(d/60000) % 60;
+      document.getElementById("cs").textContent = Math.floor(d/1000) % 60;
+    };
+    tick(); setInterval(tick, 1000);
+  }
+
+  // mektup
+  var letter = "İrem’ciğim,\n\nBu satırları yazarken içim burkuluyor. Seni üzdüğüm için kendimi affedemiyorum.\n\nSenin değerini bildiğimi, seni kaybetmekten korktuğumu bilmeni istiyorum. Hata yaptım ve bunun sorumluluğu bende.\n\nYanında olmak, seni güldürmek, her gün sana daha iyi davranmak istiyorum.\n\nBana bir şans verirsen bunu sana her gün göstermeye çalışacağım.\n\nSeni çok seviyorum.\n\nKaan";
+  document.getElementById("open").addEventListener("click", function(){
+    var el = document.getElementById("letter"), b = this, i = 0;
+    el.classList.add("show");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches){ el.textContent = letter; return; }
+    b.disabled = true; el.textContent = "";
+    var iv = setInterval(function(){
+      el.textContent = letter.slice(0, ++i);
+      if (i >= letter.length){ clearInterval(iv); b.disabled = false; b.textContent = "Tekrar oku"; }
+    }, 30);
+  });
+
+  // Supabase kaydı (yalnızca ekleme)
+  var on = !!(cfg.supabaseUrl && cfg.supabaseKey);
+  function post(m){
+    if (!on) return Promise.resolve();
+    return fetch(cfg.supabaseUrl + "/rest/v1/replies", {
+      method: "POST",
+      headers: {"Content-Type":"application/json","apikey":cfg.supabaseKey,"Authorization":"Bearer " + cfg.supabaseKey,"Prefer":"return=minimal"},
+      body: JSON.stringify({ message: m })
+    }).then(function(r){ if (!r.ok) throw new Error(r.status); });
+  }
+
+  // af cevabı
+  function answer(text, saved, burst){
+    document.getElementById("msg").textContent = text;
+    document.getElementById("yes").disabled = true;
+    document.getElementById("wait").disabled = true;
+    post("Cevap: " + saved).catch(function(){});
+    if (burst) for (var k=0;k<26;k++) setTimeout(spawn, k*70);
+  }
+  document.getElementById("yes").addEventListener("click", function(){
+    answer("Teşekkür ederim. Seni bir daha üzmemek için elimden geleni yapacağım ♥", "affetti", true);
+  });
+  document.getElementById("wait").addEventListener("click", function(){
+    answer("Anlıyorum. Acele yok, hazır olduğunda buradayım.", "biraz zamana ihtiyacım var", false);
+  });
+
+  // mesaj kutusu
+  var form = document.getElementById("reply");
+  if (on) form.hidden = false;
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var txt = document.getElementById("txt"), send = document.getElementById("send"), out = document.getElementById("sent"), v = txt.value.trim();
+    if (!v) return;
+    send.disabled = true;
+    post(v).then(function(){ txt.value = ""; out.textContent = "Mesajın bana ulaştı ♥"; })
+      .catch(function(){ out.textContent = "Gönderilemedi, birazdan tekrar dene."; })
+      .then(function(){ send.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>
+
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);

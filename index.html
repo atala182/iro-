@@ -27,6 +27,16 @@ body{margin:0;min-height:100%;background:linear-gradient(165deg,var(--bg1),var(-
 .bw{background-image:linear-gradient(90deg,#fff 50%,#111 50%)}
 .tap{position:fixed;z-index:5;pointer-events:none;animation:tap 1s ease-out forwards}
 @keyframes tap{0%{opacity:1;transform:translate(-50%,-50%) scale(.5)}100%{opacity:0;transform:translate(-50%,-200%) scale(1.6)}}
+.petals{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;width:min(380px,100%);margin-top:26px}
+.pick{margin:0;padding:0;width:100%;aspect-ratio:1;background:none;box-shadow:none;border-radius:50%}
+.pick svg{display:block;width:100%;animation:spin 20s linear infinite}
+.pick.seen{opacity:.55}
+.pick.pop svg{animation:pop .6s ease}
+@keyframes pop{50%{transform:scale(1.35) rotate(60deg)}}
+.note{min-height:3.4em;max-width:30ch;margin-top:20px;font-family:"Fraunces",Georgia,serif;font-style:italic;font-size:1.35rem}
+.todo{display:flex;align-items:center;gap:14px;background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:18px;padding:16px 20px;font-size:1.1rem;text-align:left;cursor:pointer}
+.todo input{width:22px;height:22px;accent-color:var(--accent);flex:none}
+.todo:has(input:checked) span{text-decoration:line-through;opacity:.6}
 .stage{position:relative;z-index:1}
 section{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px 24px 170px}
 section[hidden]{display:none}
@@ -143,6 +153,23 @@ button.alt{background:transparent;color:var(--ink);box-shadow:none;border:2px so
 </section>
 
 <section>
+  <h2 class="reveal">Bir çiçeğe dokun</h2>
+  <p class="reveal d1">Her birinin içinde sana bir not var.</p>
+  <div class="petals reveal d2" id="petals"></div>
+  <div class="note" id="note" aria-live="polite"></div>
+</section>
+
+<section>
+  <h2 class="reveal">Seninle yapmak istediklerim</h2>
+  <div class="cards">
+    <label class="todo reveal left"><input type="checkbox"><span>Deniz kenarında bir gün geçirmek</span></label>
+    <label class="todo reveal right d1"><input type="checkbox"><span>Birlikte yemek yapmak</span></label>
+    <label class="todo reveal left d2"><input type="checkbox"><span>Yeni bir şehir keşfetmek</span></label>
+    <label class="todo reveal right"><input type="checkbox"><span>Gün batımını izlemek</span></label>
+  </div>
+</section>
+
+<section>
   <div class="bloom" id="end" style="animation:none"></div>
   <h2 class="reveal">İrem, seni çok seviyorum.</h2>
   <p class="reveal d1">Her şey için, hep.</p>
@@ -255,6 +282,24 @@ button.alt{background:transparent;color:var(--ink);box-shadow:none;border:2px so
       el.textContent = letter.slice(0, ++i);
       if (i >= letter.length){ clearInterval(iv); b.disabled = false; b.textContent = "Tekrar oku"; }
     }, 30);
+  });
+
+  // çiçek notları
+  var notes = ["Seni her gün biraz daha çok seviyorum.","Gülüşün benim en sevdiğim yer.","Sana daha iyi davranmak için her gün çalışacağım.","Seninle her şey daha güzel.","Bana verdiğin her an için teşekkür ederim.","Seni kırdığım her an için özür dilerim.","Yanımda olduğun için çok şanslıyım.","Hazır olduğunda, buradayım."];
+  var pb = document.getElementById("petals");
+  notes.forEach(function(t){
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "pick"; b.setAttribute("aria-label", "Bir çiçek seç");
+    b.innerHTML = flower();
+    b.addEventListener("click", function(){
+      document.getElementById("note").textContent = t;
+      b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop","seen");
+      for (var k=0;k<4;k++) setTimeout(spawn, k*80);
+    });
+    pb.appendChild(b);
+  });
+  document.querySelectorAll(".todo input").forEach(function(c){
+    c.addEventListener("change", function(){ if (c.checked) for (var k=0;k<6;k++) setTimeout(spawn, k*70); });
   });
 
   // Supabase kaydı (yalnızca ekleme)
